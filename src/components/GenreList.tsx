@@ -1,6 +1,7 @@
 import {
   Button,
   HStack,
+  Heading,
   Image,
   List,
   ListItem,
@@ -24,43 +25,51 @@ const GenreList = ({ onSelectedGenre, selectedGenre }: Props) => {
   if (isLoading) return <GenreListSkeleton />;
 
   return (
-    <List>
-      <ListItem key={0} paddingY="5px">
-        <HStack>
-          <Image src={allGames} boxSize="32px" borderRadius={8} />
-
-          <Button
-            fontSize="large"
-            variant="link"
-            onClick={() => onSelectedGenre(null)}
-            fontWeight={selectedGenre ? "normal" : "bold"}
-          >
-            All
-          </Button>
-        </HStack>
-      </ListItem>
-      {/*  Mycode end */}
-
-      {data.map((genre) => (
-        <ListItem key={genre.id} paddingY="5px">
+    <>
+      <Heading fontSize="2xl" marginBottom={3}>
+        Genres
+      </Heading>
+      <List>
+        <ListItem key={0} paddingY="5px">
           <HStack>
-            <Image
-              boxSize="32px"
-              borderRadius={8}
-              src={getCroppedImageUrl(genre.image_background)}
-            />
+            <Image src={allGames} boxSize="32px" borderRadius={8} />
+
             <Button
               fontSize="large"
               variant="link"
-              onClick={() => onSelectedGenre(genre)}
-              fontWeight={genre.id === selectedGenre?.id ? "bold" : "normal"}
+              onClick={() => onSelectedGenre(null)}
+              fontWeight={selectedGenre ? "normal" : "bold"}
             >
-              {genre.name}
+              All
             </Button>
           </HStack>
         </ListItem>
-      ))}
-    </List>
+        {/*  Mycode end */}
+
+        {data.map((genre) => (
+          <ListItem key={genre.id} paddingY="5px">
+            <HStack>
+              <Image
+                boxSize="32px"
+                borderRadius={8}
+                objectFit="cover"
+                src={getCroppedImageUrl(genre.image_background)}
+              />
+              <Button
+                fontSize="large"
+                variant="link"
+                onClick={() => onSelectedGenre(genre)}
+                fontWeight={genre.id === selectedGenre?.id ? "bold" : "normal"}
+                whiteSpace="normal"
+                textAlign="left"
+              >
+                {genre.name}
+              </Button>
+            </HStack>
+          </ListItem>
+        ))}
+      </List>
+    </>
   );
 };
 
