@@ -9,6 +9,7 @@ import {
 import useGenres, { Genre } from "../hooks/useGenres";
 import getCroppedImageUrl from "../services/image-url";
 import allGames from "../assets/All-Games.jpeg";
+import GenreListSkeleton from "./GenreListSkeleton";
 
 interface Props {
   onSelectedGenre: (genre: Genre | null) => void;
@@ -18,28 +19,9 @@ interface Props {
 const GenreList = ({ onSelectedGenre, selectedGenre }: Props) => {
   const { data, isLoading, error } = useGenres();
   if (error) return null;
-  {
-    /* Mycode start */
-  }
-  const tempGenre = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-  ];
 
-  if (isLoading)
-    return (
-      <>
-        <List>
-          {tempGenre.map((genre) => (
-            <ListItem key={genre} paddingY="5px">
-              <HStack>
-                <Skeleton boxSize="32px" />
-                <Skeleton height="10px" width="100px" />
-              </HStack>
-            </ListItem>
-          ))}
-        </List>
-      </>
-    );
+  /* Mycode start */
+  if (isLoading) return <GenreListSkeleton />;
 
   return (
     <List>
@@ -57,7 +39,7 @@ const GenreList = ({ onSelectedGenre, selectedGenre }: Props) => {
           </Button>
         </HStack>
       </ListItem>
-      {/* Mycode end */}
+      {/*  Mycode end */}
 
       {data.map((genre) => (
         <ListItem key={genre.id} paddingY="5px">
